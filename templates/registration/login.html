@@ -1,0 +1,36 @@
+{% extends 'primeraApp/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block busqueda %}{% endblock busqueda %}
+{% block dashboard %}{% endblock dashboard %}
+
+{% block contenido %}
+<div class="container">
+    <div class="row justify-content-center mt-5 mb-5">
+        <div class="card" style="width: 26rem;">
+
+            <img src="{% static 'images/iniciosesion.png' %}" class="card-img-top" alt="imagen de logo inicio de sesión"
+                height="300">
+
+            <div class="card-body">
+                <h5 class="card-title text-center mb-3">Inicio de sesión</h5>
+
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+
+                    <div class="d-flex justify-content-end">
+                        <input class="btn btn-dark" type="reset" value="Cancelar">
+                        <input class="btn btn-primary" type="submit" value="Iniciar">
+                    </div>
+
+                        <a class="text-info" href="{% url 'password_reset' %}">olvidaste tu password?</a>
+                        <a class="text-info" href="{% url 'register' %}">Registrarse</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenido %}

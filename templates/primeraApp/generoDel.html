@@ -1,0 +1,26 @@
+{% extends 'primeraApp/base.html' %}
+
+{% block contenido %}
+<div class="row">
+    <div class="col-10 offset-1">
+        <h5>Confirmar eliminacion de genero</h5>
+            <div class="alert alert-danger h5">
+                Estas seguro que deseas eliminar  al genero
+                {{ genero.nombre_genero }}  ?
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <a href="{% url 'listar_generos' %}" class="btn btn-dark"><i class="fa-solid fa-xmark"></i>Cancelar</a>
+                    </div>
+
+                    <div class="col">
+                        <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i>Confirmar Eliminacion</button>
+                </div>
+            </form>
+        
+    </div>
+</div>
+    
+{% endblock contenido %}

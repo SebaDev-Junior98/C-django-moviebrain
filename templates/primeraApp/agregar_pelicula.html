@@ -1,0 +1,88 @@
+{% extends 'primeraApp/base.html' %}
+
+
+{% block contenido %}
+{% load static %}
+<div id="modalOverlay" class="modal-overlay"></div>
+
+<div id="modalAgregar">
+    <h3><i class="fa-solid fa-clapperboard"></i> Agregar Película</h3>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <div class="mb-3">
+            {{ form.titulo.label_tag }}
+            {{ form.titulo }}
+            <div class="invalid-feedback d-block">
+                {{ form.titulo.errors }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            {{ form.generos.label_tag }}
+            {{ form.generos }}
+            <div class="invalid-feedback d-block">
+                {{ form.generos.errors }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            {{ form.anio.label_tag }}
+            {{ form.anio }}
+            <div class="invalid-feedback d-block">
+                {{ form.anio.errors }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            {{ form.descripcion.label_tag }}
+            {{ form.descripcion }}
+            <div class="invalid-feedback d-block">
+                {{ form.descripcion.errors }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            {{ form.puntuacion.label_tag }}
+            {{ form.puntuacion }}
+            <div class="invalid-feedback d-block">
+                {{ form.puntuacion.errors }}
+            </div>
+        </div>
+
+        <div class="container mb-3">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-6 text-center">
+                    <img src="{% static 'images/pelicula.png' %}"
+                         alt="Imagen de una película"
+                         width="200"
+                         class="img-fluid mb-2">
+
+                    <label for="foto">
+                        Fotografía de la Película
+                    </label>
+                    <input type="file" name="foto" id="foto" class="form-control form-control-sm">
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+            <i class="fa-regular fa-floppy-disk"></i> Guardar
+        </button>
+
+        <button type="button" class="btn btn-secondary w-100 mt-2" onclick="cerrarModal()">
+            <i class="fa-solid fa-xmark"></i> Cancelar
+        </button>
+    </form>
+</div>
+
+{% endblock contenido %}
+
+    

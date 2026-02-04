@@ -1,0 +1,77 @@
+{% extends 'primeraApp/base.html' %}
+
+{% block dashboard %}
+<div class="container mt-4">
+    <div class="row g-4">
+
+        <!-- Películas -->
+        <div class="col-lg-4 col-md-6">
+            <div class="dashboard-card">
+                <div class="circulo">
+                    <span>{{ total_peliculas }}</span>
+                </div>
+                <div class="titulo-widget">Películas registradas</div>
+            </div>
+        </div>
+
+        <!-- Recomendaciones -->
+        <div class="col-lg-4 col-md-6">
+            <div class="dashboard-card">
+                <div class="circulo">
+                    <span>{{ total_recomendaciones }}</span>
+                </div>
+                <div class="titulo-widget">Recomendaciones hechas</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CALIFICACIÓN -->
+<div class="container mt-5 text-center text-white">
+    <h3>Califica la Aplicación</h3>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form_calificacion.puntuacion }}
+        <button type="submit" name="calificacion_submit" class="btn btn-light mt-3">
+            Enviar calificación
+        </button>
+    </form>
+</div>
+
+<!-- PROMEDIO -->
+<div class="container mt-5">
+    <div class="dashboard-card text-center">
+        <h4 class="text-white">Promedio General</h4>
+        <div class="circulo mt-3">
+            <span>{{ promedio }}</span>
+        </div>
+    </div>
+</div>
+
+<!-- COMENTARIOS -->
+<div class="container mt-5 text-white">
+    <h4>Deja un comentario</h4>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form_comentario.texto }}
+        <button type="submit" name="comentario_submit" class="btn btn-light mt-3">
+            Enviar comentario
+        </button>
+    </form>
+
+    <ul class="list-group mt-3">
+        {% for comentario in comentarios %}
+            <li class="list-group-item">
+                <strong>{{ comentario.usuario.username }}:</strong>
+                {{ comentario.texto }}
+            </li>
+        {% empty %}
+            <li class="list-group-item text-muted">
+                No hay comentarios
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

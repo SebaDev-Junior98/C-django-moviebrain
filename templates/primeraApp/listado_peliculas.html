@@ -1,0 +1,81 @@
+{% extends 'primeraApp/base.html' %}
+{% block contenido %}
+
+<div id="modalOverlay" class="modal-overlay"></div>
+
+<div id="modalAgregar">
+    <div class="row mb-3">
+        <div class="col-9">
+            <h2>Listado de películas</h2>
+        </div>
+        <div class="col-3 text-end">
+            <a class="btn btn-success btn-sm" href="{% url 'agregar_pelicula' %}">
+                🎬 Agregar película
+            </a>
+        </div>
+    </div>
+<div class="row mt-4">
+    <div class="col-md-6 ms-auto">
+        <form method="get" action="{% url 'listar_peliculas' %}" class="d-flex">
+            <div class="input-group">
+                <input type="text"
+                       name="search"
+                       class="form-control"
+                       placeholder="Buscar nombre  por titulo..."
+                       value="{{ request.GET.search }}">
+                <button class="btn btn-primary" type="submit">
+                    <i class="bi bi-search-heart"></i> Buscar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+    <table class="table table-primary table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Título</th>
+                <th>Género</th>
+                <th>Año</th>
+                <th>Descripcion</th>
+                <th>Puntuacion</th>
+                <th>Foto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for pelicula in peliculas %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ pelicula.titulo }}</td>
+                <td>{{ pelicula.generos }}</td>
+                <td>{{ pelicula.anio }}</td>
+                <td>{{ pelicula.descripcion }}</td>
+                <td>{{ pelicula.puntuacion }}</td>
+                <td>
+                    {% if pelicula.foto %}
+                    <img src="{{ pelicula.foto.url }}" alt="foto de la pelicula" width="50" height="auto">
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="btn btn-info btn-sm" href="{% url 'editarPelicula' pelicula.id %}">
+                        <i class="fa-solid fa-pen-to-square"></i> Editar
+                    </a>
+
+                    <a class="btn btn-danger btn-sm" href="{% url 'eliminarPelicula' pelicula.id %}">
+                        <i class="fa-solid fa-trash"></i> Eliminar
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-secondary mt-3 w-100" onclick="cerrarModal()">Cerrar</button>
+</div>
+
+{% endblock contenido %}
+
+
+
+    

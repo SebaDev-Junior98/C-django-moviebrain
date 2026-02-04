@@ -1,0 +1,30 @@
+{% extends 'primeraApp/base.html' %}
+{% block contenido %}
+<div id="modalOverlay" class="modal-overlay"></div>
+
+<div id="modalAgregar">
+    <h3><i class="fa-solid fa-film"></i>Agregar Genero de pelicula</h3>
+    <form method="post">
+        {% csrf_token %}
+      {% if form.non_field_errors %}
+<div class="alert alert-danger">
+    {{ form.non_field_errors }}
+</div>
+{% endif %}
+        <div class="mb-3">
+            {{ form.nombre_genero.label_tag }}
+            {{ form.nombre_genero }}
+            <div class="invalid-feedback d-block">
+                {{ form.nombre_genero.errors }}
+            </div>
+
+        </div>
+
+           <button type="submit" class="btn btn-primary w-100">
+            <i class="fa-regular fa-floppy-disk"></i> Guardar
+        </button>
+        <button type="button" class="btn btn-secondary w-100 mt-2" onclick="cerrarModal()"><i
+                class="fa-solid fa-xmark"></i>Cancelar</button>
+    </form>
+</div>
+{% endblock contenido %}

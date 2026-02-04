@@ -1,0 +1,51 @@
+{% extends 'primeraApp/base.html' %}
+{% block contenido %}
+
+<div id="modalOverlay" class="modal-overlay"></div>
+
+<div id="modalAgregar">
+    <div class="row mb-3">
+        <div class="col-12">
+            <h2>Listado de recomendaciones</h2>
+        </div>
+    </div>
+     <div class="col-3 text-end">
+            <a class="btn btn-success btn-sm" href="{% url 'agregar_recomendacion' %}">
+                🎬 Agregar recomendacion
+            </a>
+        </div>
+
+    <table class="table table-primary table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Usuario</th>
+                <th>Película recomendada</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for recomendacion in recomendaciones %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ recomendacion.usuario.username }}</td>
+                <td>{{ recomendacion.peliculas }}</td>
+                <td>{{ recomendacion.fecha|date:"d-m-Y H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center text-muted">
+                    No hay recomendaciones registradas
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-secondary mt-3 w-100" onclick="cerrarModal()">
+        Cerrar
+    </button>
+</div>
+
+{% endblock contenido %}

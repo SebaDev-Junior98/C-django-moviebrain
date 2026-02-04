@@ -1,0 +1,33 @@
+{% extends 'primeraApp/base.html' %}
+{% block contenido %}
+<div id="modalOverlay" class="modal-overlay"></div>
+
+<div id="modalAgregar">
+    <h3><i class="fa-solid fa-film"></i>Editar Genero de  la pelicula</h3>
+    <form method="post" action="{% url 'generoEditado' genero.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+             {% if form.non_field_errors %}
+<div class="alert alert-danger">
+    {{ form.non_field_errors }}
+</div>
+{% endif %}
+        <div class="mb-3">
+        {{ form.nombre_genero.label_tag }}
+         {{ form.nombre_genero }}
+         <div class="invalid-feedback d-block">
+            {{ form.nombre_genero.errors }}
+         </div>
+         
+        </div>
+        <div class="col-4">
+            <div class="row">
+                <div class="col">
+                    <img src="{{ pelicula.foto.url }}" alt="imagen de una pelicula" width="200" height="auto" class="mx-auto my-auto"></div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-floppy-disk"></i>Modificar</button>
+        <button type="button" class="btn btn-secondary w-100 mt-2" onclick="cerrarModal()"><i class="fa-solid fa-xmark"></i>Cancelar</button>
+    </form>
+</div>
+{% endblock contenido %}
